@@ -11,7 +11,7 @@ const localePath = '{{lng}}/{{ns}}.json';
 
 export const ni18nConfig = {
   supportedLngs: ['en'],
-  ns: ['common', 'auth', 'dashboard', 'property', 'tenancy', 'payment'],
+  ns: ['common', 'auth', 'dashboard'],
   use: isBrowser ? [ChainedBackend] : undefined,
   defaultNS: 'common',
   fallbackLng: 'en',
