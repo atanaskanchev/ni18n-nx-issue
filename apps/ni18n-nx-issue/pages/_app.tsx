@@ -1,5 +1,7 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
+import { appWithI18Next } from 'ni18n';
+import { ni18nConfig } from '../ni18n.config';
 import './styles.css';
 
 function CustomApp({ Component, pageProps }: AppProps) {
@@ -15,4 +17,4 @@ function CustomApp({ Component, pageProps }: AppProps) {
   );
 }
 
-export default CustomApp;
+export default appWithI18Next(CustomApp, ni18nConfig);
