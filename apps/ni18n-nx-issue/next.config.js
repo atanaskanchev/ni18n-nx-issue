@@ -14,6 +14,9 @@ const nextConfig = {
     defaultLocale: 'en',
     locales: ['en'],
   },
+  experimental: {
+    externalDir: true,
+  },
 };
 
 module.exports = withNx(nextConfig);

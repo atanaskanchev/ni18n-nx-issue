@@ -1,17 +1,23 @@
 import ChainedBackend from 'i18next-chained-backend';
 import HttpBackend from 'i18next-http-backend';
 import LocalStorageBackend from 'i18next-localstorage-backend';
+import path from 'path';
 
 const isBrowser = typeof window !== 'undefined';
+console.log('file: ni18n.config.ts ~ line 6 ~ isBrowser', isBrowser);
 
 const isRunningOnLocalhost =
   !!process.env['NEXT_PUBLIC_IS_RUNNING_ON_LOCALHOST'];
+console.log(
+  'file: ni18n.config.ts ~ line 9 ~ isRunningOnLocalhost',
+  isRunningOnLocalhost
+);
 
-const localePath = '{{lng}}/{{ns}}.json';
+const localePath = '{{lng}}/{{ns}}';
 
 export const ni18nConfig = {
   supportedLngs: ['en'],
-  ns: ['common', 'auth', 'dashboard', 'property', 'tenancy', 'payment'],
+  ns: ['common', 'auth', 'dashboard'],
   use: isBrowser ? [ChainedBackend] : undefined,
   defaultNS: 'common',
   fallbackLng: 'en',
@@ -26,7 +32,12 @@ export const ni18nConfig = {
       }
     : isRunningOnLocalhost
     ? { loadPath: `apps/ni18n-nx-issue/public/locales/${localePath}` }
-    : { loadPath: `locales/${localePath}` },
+    : {
+        loadPath:
+          path.join(process.cwd(), './static/locales') + `/${localePath}.json`,
+      },
+
+  // localePath: path.resolve('./public/static/locales'),
 
   interpolation: {
     format: (value, format, lng, options) => {
@@ -55,5 +66,8 @@ export const ni18nConfig = {
       }
     },
     escapeValue: false, // react already safes from xss
+    react: {
+      useSuspense: false,
+    },
   },
 };

@@ -2,15 +2,22 @@ import { UiLibsDashboard } from '@ni18n-nx-issue/ui-libs/dashboard';
 import { loadTranslations } from 'ni18n';
 import { ni18nConfig } from '../../ni18n.config';
 
-const Dashboard = () => <UiLibsDashboard />;
+const DashboardSlug = () => <UiLibsDashboard />;
 
-export const getServerSideProps = async ({ locale }) => {
+export async function getStaticPaths() {
+  return {
+    paths: [{ params: { slug: 'slug' } }],
+    fallback: true,
+  };
+}
+
+export const getStaticProps = async ({ locale }) => {
   const loadedTranslationsSSP = {
     ...(await loadTranslations(ni18nConfig, locale, ['common', 'dashboard'])),
   };
 
   console.log({
-    where: 'getServerSideProps',
+    where: 'getStaticProps',
     locale,
     ni18nConfig: JSON.stringify(ni18nConfig),
     loadedTranslationsSSP: JSON.stringify(loadedTranslationsSSP),
@@ -21,4 +28,4 @@ export const getServerSideProps = async ({ locale }) => {
   };
 };
 
-export default Dashboard;
+export default DashboardSlug;
