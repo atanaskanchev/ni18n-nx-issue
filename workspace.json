@@ -1,0 +1,7 @@
+{
+  "version": 2,
+  "projects": {
+    "ni18n-nx-issue": "apps/ni18n-nx-issue",
+    "ni18n-nx-issue-e2e": "apps/ni18n-nx-issue-e2e"
+  }
+}

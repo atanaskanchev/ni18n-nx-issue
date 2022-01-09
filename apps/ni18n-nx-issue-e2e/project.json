@@ -1,0 +1,28 @@
+{
+  "root": "apps/ni18n-nx-issue-e2e",
+  "sourceRoot": "apps/ni18n-nx-issue-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/ni18n-nx-issue-e2e/cypress.json",
+        "devServerTarget": "ni18n-nx-issue:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "ni18n-nx-issue:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/ni18n-nx-issue-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["ni18n-nx-issue"]
+}

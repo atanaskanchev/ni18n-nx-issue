@@ -1,0 +1,54 @@
+{
+  "root": "apps/ni18n-nx-issue",
+  "sourceRoot": "apps/ni18n-nx-issue",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/next:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "root": "apps/ni18n-nx-issue",
+        "outputPath": "dist/apps/ni18n-nx-issue"
+      },
+      "configurations": {
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/next:server",
+      "options": {
+        "buildTarget": "ni18n-nx-issue:build",
+        "dev": true
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "ni18n-nx-issue:build:production",
+          "dev": false
+        }
+      }
+    },
+    "export": {
+      "executor": "@nrwl/next:export",
+      "options": {
+        "buildTarget": "ni18n-nx-issue:build:production"
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/ni18n-nx-issue"],
+      "options": {
+        "jestConfig": "apps/ni18n-nx-issue/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/ni18n-nx-issue/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  },
+  "tags": []
+}
