@@ -1,22 +1,20 @@
 import { UiLibsDashboard } from '@ni18n-nx-issue/ui-libs/dashboard';
 import { loadTranslations } from 'ni18n';
+import path from 'path';
 import { ni18nConfig } from '../../ni18n.config';
-
-console.log('file: index.tsx ~ line 4 ~ ni18nConfig', ni18nConfig);
 
 const Dashboard = () => <UiLibsDashboard />;
 
 export const getServerSideProps = async ({ locale }) => {
-  const something = {
+  path.join('./locales');
+  const ssr = {
     ...(await loadTranslations(ni18nConfig, locale, ['common', 'dashboard'])),
   };
-  console.log(
-    'file: index.tsx ~ line 9 ~ getServerSideProps ~ something',
-    something
-  );
+
+  console.log({ ssr: JSON.stringify(ssr), ni18nConfig, locale });
 
   return {
-    props: something,
+    props: ssr,
   };
 };
 

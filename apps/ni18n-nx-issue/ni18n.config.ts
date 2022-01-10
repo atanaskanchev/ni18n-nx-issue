@@ -9,24 +9,31 @@ const isRunningOnLocalhost =
 
 const localePath = '{{lng}}/{{ns}}.json';
 
+console.log({
+  isBrowser,
+  isRunningOnLocalhost,
+});
+
 export const ni18nConfig = {
   supportedLngs: ['en'],
-  ns: ['common', 'auth', 'dashboard'],
-  use: isBrowser ? [ChainedBackend] : undefined,
-  defaultNS: 'common',
+  ns: ['common', 'auth', 'dashboard', 'property', 'tenancy', 'payment'],
+
+  ...(isBrowser && {
+    use: [ChainedBackend],
+  }),
+
   fallbackLng: 'en',
 
-  backend: isBrowser
-    ? {
-        backends: [LocalStorageBackend, HttpBackend],
-        backendOptions: [
-          { expirationTime: 24 * 60 * 60 * 1000 },
-          { loadPath: `locales/${localePath}` },
-        ],
-      }
-    : isRunningOnLocalhost
-    ? { loadPath: `apps/ni18n-nx-issue/public/locales/${localePath}` }
-    : { loadPath: `locales/${localePath}` },
+  backend: {
+    ...(isBrowser && {
+      backends: [LocalStorageBackend, HttpBackend],
+      backendOptions: [{ expirationTime: 24 * 60 * 60 * 1000 }],
+    }),
+
+    ...(isRunningOnLocalhost && {
+      loadPath: `apps/ni18n-nx-issue/public/locales/${localePath}`,
+    }),
+  },
 
   interpolation: {
     format: (value, format, lng, options) => {
@@ -34,7 +41,7 @@ export const ni18nConfig = {
         case 'number':
           return new Intl.NumberFormat(lng).format(value);
         case 'date':
-          return new Intl.DateTimeFormat(options?.locale).format(
+          return new Intl.DateTimeFormat(options?.locale, {}).format(
             new Date(value)
           );
         case 'datetime':
