@@ -14,7 +14,7 @@
     "i18next": "^21.6.5",
     "i18next-chained-backend": "^3.0.2",
     "i18next-localstorage-backend": "^3.1.3",
-    "next": "12.0.7",
+    "next": "12.0.9",
     "ni18n": "^1.0.3-rc.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
